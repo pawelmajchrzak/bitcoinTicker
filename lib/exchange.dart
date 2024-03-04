@@ -8,7 +8,7 @@ class ExchangeModel {
 
   Future<dynamic> getExchangeRate(String currency) async {
 
-    var url = Uri.parse('$coinApiUrl/BTC/USD?apikey=$apiKey');
+    var url = Uri.parse('$coinApiUrl/BTC/$currency?apikey=$apiKey');
     http.Response response = await http.get(url);
 
     if (response.statusCode == 200) {
