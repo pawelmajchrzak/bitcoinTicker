@@ -13,6 +13,7 @@ class PriceScreen extends StatefulWidget {
 class _PriceScreenState extends State<PriceScreen> {
   String selectedCurrency = 'USD';
   var exchangeRate;
+  late int rateUSD = 0;
 
   @override
   void initState() {
@@ -21,7 +22,21 @@ class _PriceScreenState extends State<PriceScreen> {
   }
 
   void getSelectedCurrencyExchangeRate() async {
-     //exchangeRate = await ExchangeModel().getExchangeRate(selectedCurrency);
+     exchangeRate = await ExchangeModel().getExchangeRate(selectedCurrency);
+    // ExchangeModel exchangeModel = ExchangeModel();
+    // exchangeModel.getExchangeRate(selectedCurrency);
+    updateUI(exchangeRate);
+  }
+
+  void updateUI(dynamic exchangeRate) {
+    setState(() {
+      if (exchangeRate == null) {
+        rateUSD = 0;
+        return;
+      }
+      double rateTemporary = exchangeRate['rate'];
+      rateUSD = rateTemporary.toInt();
+    });
   }
 
   DropdownButton<String> androidDropdown() {
@@ -81,7 +96,7 @@ class _PriceScreenState extends State<PriceScreen> {
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 15.0, horizontal: 28.0),
                 child: Text(
-                  '1 BTC = ? USD',
+                  '1 BTC = $rateUSD USD',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 20.0,
