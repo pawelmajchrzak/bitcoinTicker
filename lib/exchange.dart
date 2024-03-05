@@ -1,9 +1,10 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'coin_data.dart';
+import 'config.dart';
 
-const apiKey = 'CFA92D27-EE0F-424B-A833-71F709D4BD26';
-const coinApiUrl = 'https://rest.coinapi.io/v1/exchangerate';
+const String apiKey = Config.apiKey;
+const String coinApiUrl = 'https://rest.coinapi.io/v1/exchangerate';
 
 class ExchangeModel {
 
